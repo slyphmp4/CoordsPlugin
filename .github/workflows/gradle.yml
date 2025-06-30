@@ -1,9 +1,6 @@
-name: Build & Release
+name: CI Release
 
-on:
-  push:
-    branches: [main]
-    tags:     ['v*']
+on: [push]
 
 permissions:
   contents: write
@@ -29,22 +26,20 @@ jobs:
       - name: 🔨  Build fat-jar (shadowJar)
         run: ./gradlew shadowJar
 
-      # ---------- релиз-блок: только если это тег ----------
-      - name: 🚀  Create / Update GitHub Release
-        if: startsWith( github.ref, 'refs/tags/' )
+      - name: 🚀  Create / Update auto-release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
-          generate_release_notes: true
+          tag_name: ci-${{ github.sha }}
+          name: CI ${{ github.sha }}
+          generate_release_notes: false
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📦  Upload JAR asset to Release
-        if: startsWith( github.ref, 'refs/tags/' )
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
+          tag_name: ci-${{ github.sha }}
           files: build/libs/CoordsPlugin-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
