@@ -2,6 +2,7 @@ package com.slyph.coords.manager;
 
 import com.slyph.coords.util.ColorUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -9,50 +10,72 @@ import java.util.*;
 
 public final class MessageManager {
 
-    private final Plugin plugin;
-    private YamlConfiguration data;
+    private final Plugin  plugin;
+    private final String  fallback = "en";
+    private final Map<String, YamlConfiguration> langs = new HashMap<>();
+    private       String  configLang;
 
     public MessageManager(Plugin plugin) {
         this.plugin = plugin;
-        load();
+        loadAll();
     }
 
-    public void load() {
-        File file = new File(plugin.getDataFolder(), "messages.yml");
-        if (!file.exists()) plugin.saveResource("messages.yml", false);
-        data = YamlConfiguration.loadConfiguration(file);
-    }
+    public void reload() { loadAll(); }
+    private void loadAll() {
+        File dir = new File(plugin.getDataFolder(), "langs");
+        if (!dir.exists()) dir.mkdirs();
 
-    public String get(String key) {
-        String raw = data.getString(key, "§c<not-found:" + key + ">");
-        raw = raw.replace("{prefix}", data.getString("prefix", ""));
-        return ColorUtil.translateHexColors(raw);
-    }
+        langs.clear();
+        List<String> codes = List.of("en", "ru", "uk", "pl");
 
-    public List<String> getLines(String key) {
-        List<String> lines = data.getStringList(key);
-        if (lines == null || lines.isEmpty()) lines = Collections.singletonList(get(key));
-        String prefix = data.getString("prefix", "");
-        List<String> out = new ArrayList<>(lines.size());
-        for (String l : lines) {
-            l = l.replace("{prefix}", prefix);
-            out.add(ColorUtil.translateHexColors(l));
+        for (String code : codes) {
+            String res = "langs/messages_" + code + ".yml";
+            File dst   = new File(dir, "messages_" + code + ".yml");
+            if (!dst.exists()) plugin.saveResource(res, false);
+            langs.put(code, YamlConfiguration.loadConfiguration(dst));
         }
+
+        configLang = plugin.getConfig().getString("language", "auto").toLowerCase();
+        if (!configLang.equals("auto") && !langs.containsKey(configLang))
+            configLang = fallback;
+    }
+
+    private String determineLang(Player p) {
+        if (!"auto".equals(configLang)) return configLang;
+        if (p == null) return fallback;
+        String loc  = p.getLocale();
+        String code = (loc == null || loc.length() < 2) ? fallback : loc.substring(0, 2);
+        return langs.containsKey(code) ? code : fallback;
+    }
+
+    public List<String> lines(Player p, String key) {
+        return lines(determineLang(p), key);
+    }
+
+    public List<String> lines(String lang, String key) {
+        YamlConfiguration yml = langs.getOrDefault(lang, langs.get(fallback));
+        List<String> raw = yml.getStringList(key);
+        if (raw.isEmpty())
+            raw = Collections.singletonList(yml.getString(key, "§c<" + key + ">"));
+
+        String prefix = yml.getString("prefix", "");
+        List<String> out = new ArrayList<>(raw.size());
+        for (String l : raw)
+            out.add(ColorUtil.translateHexColors(l.replace("{prefix}", prefix)));
         return out;
     }
 
-    public List<String> formatLines(String key, Map<String, String> placeholders) {
-        List<String> base = getLines(key);
-        List<String> result = new ArrayList<>(base.size());
-        for (String line : base) {
-            for (var e : placeholders.entrySet())
-                line = line.replace(e.getKey(), e.getValue());
-            result.add(line);
+    public List<String> format(Player p, String key, Map<String, String> ph) {
+        List<String> base = lines(p, key);
+        List<String> res  = new ArrayList<>(base.size());
+        for (String s : base) {
+            for (var e : ph.entrySet()) s = s.replace(e.getKey(), e.getValue());
+            res.add(s);
         }
-        return result;
+        return res;
     }
 
-    public List<String> formatLines(String key, String ph, String val) {
-        return formatLines(key, Map.of(ph, val));
+    public String single(Player p, String key) {
+        return lines(p, key).get(0);
     }
 }

@@ -14,70 +14,64 @@ public final class CordCommand implements CommandExecutor, TabCompleter {
     private final CoordsPlugin plugin;
     private final LegacyComponentSerializer legacy = LegacyComponentSerializer.legacyAmpersand();
 
-    public CordCommand(CoordsPlugin plugin) {
-        this.plugin = plugin;
-    }
+    public CordCommand(CoordsPlugin plugin) { this.plugin = plugin; }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        var msg = plugin.getMsgManager();
 
-        if (args.length == 0) {
-            sendLines(sender, "usage");
-            return true;
-        }
+        var mm     = plugin.getMsgManager();
+        Player pl  = sender instanceof Player ? (Player) sender : null;
+
+        if (args.length == 0) { send(sender, mm.lines(pl,"usage")); return true; }
 
         switch (args[0].toLowerCase()) {
 
-            case "reload":
+            case "reload" -> {
                 if (!sender.hasPermission("coords.reload")) {
-                    sendLines(sender, "no-perm");
-                    return true;
+                    send(sender, mm.lines(pl,"no-perm")); return true;
                 }
                 plugin.restartPlugin();
-                sendLines(sender, "reload-success");
-                return true;
+                send(sender, mm.lines(pl,"reload-success"));
+            }
 
-            case "on":
-            case "off":
-                if (!(sender instanceof Player)) {
-                    sendLines(sender, "player-only");
+            case "on", "off" -> {
+                if (pl == null) { send(sender, mm.lines("en","player-only")); return true; }
+                if (!pl.hasPermission("coords.toggle")) { send(pl, mm.lines(pl,"no-perm")); return true; }
+
+                boolean wantEnable = args[0].equals("on");
+                boolean enabled    = plugin.getToggleManager().isEnabled(pl);
+
+                if (wantEnable == enabled) {
+                    send(pl, mm.lines(pl, wantEnable ? "already-enabled"
+                            : "already-disabled"));
                     return true;
                 }
-                Player p = (Player) sender;
-                if (!p.hasPermission("coords.toggle")) {
-                    sendLines(p, "no-perm");
-                    return true;
-                }
-                boolean enable = args[0].equalsIgnoreCase("on");
-                plugin.getToggleManager().setEnabled(p, enable);
-                sendLines(p, enable ? "coords-enabled" : "coords-disabled");
-                return true;
 
-            default:
-                sendLines(sender, "unknown-subcmd");
-                return true;
+                plugin.getToggleManager().setEnabled(pl, wantEnable);
+                send(pl, mm.lines(pl, wantEnable ? "coords-enabled"
+                        : "coords-disabled"));
+            }
+
+            default -> send(sender, mm.lines(pl,"unknown-subcmd"));
         }
+        return true;
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-        if (args.length == 1) {
-            List<String> subs = new ArrayList<>();
-            if (sender.hasPermission("coords.reload")) subs.add("reload");
-            if (sender instanceof Player && sender.hasPermission("coords.toggle")) {
-                subs.add("on"); subs.add("off");
-            }
-            String entered = args[0].toLowerCase();
-            return subs.stream().filter(s -> s.startsWith(entered)).collect(Collectors.toList());
-        }
-        return Collections.emptyList();
+    public List<String> onTabComplete(CommandSender s, Command c, String a, String[] args) {
+        if (args.length != 1) return Collections.emptyList();
+        List<String> subs = new ArrayList<>();
+        if (s.hasPermission("coords.reload")) subs.add("reload");
+        if (s instanceof Player p && p.hasPermission("coords.toggle"))
+            Collections.addAll(subs, "on", "off");
+        return subs.stream()
+                .filter(v -> v.startsWith(args[0].toLowerCase()))
+                .collect(Collectors.toList());
     }
 
-    private void sendLines(CommandSender target, String key) {
-        for (String raw : plugin.getMsgManager().getLines(key)) {
-            Component comp = legacy.deserialize(raw);
-            plugin.adventure().sender(target).sendMessage(comp);
-        }
+    private void send(CommandSender tgt, List<String> lines) {
+        for (String raw : lines)
+            plugin.adventure().sender(tgt)
+                    .sendMessage(Component.text("").append(legacy.deserialize(raw)));
     }
 }

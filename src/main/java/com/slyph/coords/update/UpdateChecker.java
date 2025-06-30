@@ -44,9 +44,9 @@ public final class UpdateChecker {
                     plugin.getLogger().info("");
                     plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
                     plugin.getLogger().info("");
-                    plugin.getLogger().info("[CoordsPlugin] Доступна новая версия " + latest +
+                    plugin.getLogger().info("[CoordsPlugin] New version available " + latest +
                             " (текущая " + current + ")");
-                    plugin.getLogger().info("[CoordsPlugin] Скачать: " + DL);
+                    plugin.getLogger().info("[CoordsPlugin] Download: " + DL);
                     plugin.getLogger().info("");
                     plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
                     plugin.getLogger().info("");
@@ -54,7 +54,7 @@ public final class UpdateChecker {
                     plugin.getLogger().info("");
                     plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
                     plugin.getLogger().info("");
-                    plugin.getLogger().info("[CoordsPlugin] Плагин актуален (" + current + ").");
+                    plugin.getLogger().info("[CoordsPlugin] Plugin actual (" + current + ").");
                     plugin.getLogger().info("");
                     plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
                     plugin.getLogger().info("");
@@ -64,7 +64,7 @@ public final class UpdateChecker {
             plugin.getLogger().info("");
             plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
             plugin.getLogger().info("");
-            plugin.getLogger().warning("Не удалось проверить обновления: " + ex.getMessage());
+            plugin.getLogger().warning("Can't check updates: " + ex.getMessage());
             plugin.getLogger().info("");
             plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
             plugin.getLogger().info("");

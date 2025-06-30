@@ -1,13 +1,51 @@
-update-interval-ticks: 1
-check-updates: true
-language: auto
+prefix: ""
 
-#auto - automatically detects your language
-#en - English
-#ru - Russian
-#uk - Ukrainian
-#pl - Polish
+usage:
+  - ""
+  - "&ffc852 ☄  &ffde96|  &ffc852Użyj /cord &lon/off"
+  - ""
 
+no-perm:
+  - ""
+  - "&c72b2b ❌  &ff9089|  &ff5a5aNie masz uprawnień do tej komendy"
+  - ""
+
+player-only:
+  - ""
+  - "Tylko gracz może użyć tej komendy."
+  - ""
+
+unknown-subcmd:
+  - ""
+  - "&ffc852 ☄  &ffde96|  &ffc852Użyj /cord &lon/off"
+  - ""
+
+reload-success:
+  - ""
+  - "&86e96e ✔  &6dbf58|  &86e96ePlugin został pomyślnie przeładowany!"
+  - ""
+
+coords-enabled:
+  - ""
+  - "&86e96e ✔  &6dbf58|  &86e96eWspółrzędne włączone"
+  - ""
+
+coords-disabled:
+  - ""
+  - "&c72b2b ⛈  &ff9089|  &ff5a5aWspółrzędne wyłączone"
+  - ""
+
+already-enabled:
+  - ""
+  - "&86e96e ✔  &6dbf58|  &86e96eWspółrzędne są już włączone"
+  - ""
+
+already-disabled:
+  - ""
+  - "&c72b2b ⛈  &ff9089|  &ff5a5aWspółrzędne są już wyłączone"
+  - ""
+
+coordinate-message: "&ffff52&lX: &fdff96{x}  &ff9452&lY: &ffbd96{y}  &ff5c52&lZ: &ffa096{z}"
 
 #         *        .        ✦          .             .         *
 #        .                *        .         ✷             ✧        .

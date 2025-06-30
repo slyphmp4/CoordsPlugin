@@ -45,7 +45,7 @@ public final class CoordsPlugin extends JavaPlugin {
             CordCommand handler = new CordCommand(this);
             cord.setExecutor(handler);
             cord.setTabCompleter(handler);
-        } else getLogger().severe("Не найдена команда 'cord'!");
+        } else getLogger().severe("Command 'cord' not find!");
     }
 
     public void startTask() {
@@ -56,12 +56,13 @@ public final class CoordsPlugin extends JavaPlugin {
 
     public void restartPlugin() {
         reloadConfig();
-        messageManager.load();
+        messageManager.reload();
         if (coordinateTask != null) coordinateTask.cancel();
         startTask();
         if (getConfig().getBoolean("check-updates", true))
             new UpdateChecker(this).runCheck();
     }
+
 
     public ToggleManager  getToggleManager() { return toggleManager; }
     public MessageManager getMsgManager()    { return messageManager; }
