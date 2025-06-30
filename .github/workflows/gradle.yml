@@ -1,4 +1,4 @@
-name: CI Release
+name: Build & Flip release
 
 on: [push]
 
@@ -25,21 +25,29 @@ jobs:
 
       - name: 🔨  Build fat-jar (shadowJar)
         run: ./gradlew shadowJar
+        
+      - name: 📊  Compute tag & name
+        id: vars
+        run: |
+          shortsha=${GITHUB_SHA::7}
+          date=$(date -u +'%Y-%m-%d')
+          echo "tag=dev-${date}-${shortsha}"      >> $GITHUB_OUTPUT
+          echo "title=CoordsPlugin dev-${date}-${shortsha}" >> $GITHUB_OUTPUT
 
-      - name: 🚀  Create / Update auto-release
+      - name: 🚀  Create / Update GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ci-${{ github.sha }}
-          name: CI ${{ github.sha }}
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name:     ${{ steps.vars.outputs.title }}
           generate_release_notes: false
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📦  Upload JAR asset to Release
+      - name: 📦  Upload JAR asset
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ci-${{ github.sha }}
+          tag_name: ${{ steps.vars.outputs.tag }}
           files: build/libs/CoordsPlugin-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
