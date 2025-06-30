@@ -5,9 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-/**
- * Очищаем флаги при выходе игрока, чтобы не хранить лишние UUID.
- */
 public final class CleanupListener implements Listener {
 
     private final ToggleManager toggleManager;
@@ -18,6 +15,6 @@ public final class CleanupListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        toggleManager.setEnabled(event.getPlayer(), true); // возвращаем в enabled-состояние
+        toggleManager.setEnabled(event.getPlayer(), true);
     }
 }

@@ -6,9 +6,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Хранит игроков, отключивших показ координат.
- */
 public final class ToggleManager {
 
     private final Set<UUID> disabled = ConcurrentHashMap.newKeySet();

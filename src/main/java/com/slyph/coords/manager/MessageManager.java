@@ -17,24 +17,21 @@ public final class MessageManager {
         load();
     }
 
-    /* -------- загрузка messages.yml -------- */
     public void load() {
         File file = new File(plugin.getDataFolder(), "messages.yml");
         if (!file.exists()) plugin.saveResource("messages.yml", false);
         data = YamlConfiguration.loadConfiguration(file);
     }
 
-    /* -------- одиночная строка (как раньше) -------- */
     public String get(String key) {
         String raw = data.getString(key, "§c<not-found:" + key + ">");
         raw = raw.replace("{prefix}", data.getString("prefix", ""));
         return ColorUtil.translateHexColors(raw);
     }
 
-    /* -------- список строк -------- */
     public List<String> getLines(String key) {
         List<String> lines = data.getStringList(key);
-        if (lines == null || lines.isEmpty()) lines = Collections.singletonList(get(key)); // fallback
+        if (lines == null || lines.isEmpty()) lines = Collections.singletonList(get(key));
         String prefix = data.getString("prefix", "");
         List<String> out = new ArrayList<>(lines.size());
         for (String l : lines) {
@@ -44,7 +41,6 @@ public final class MessageManager {
         return out;
     }
 
-    /* -------- форматирование с плейсхолдерами -------- */
     public List<String> formatLines(String key, Map<String, String> placeholders) {
         List<String> base = getLines(key);
         List<String> result = new ArrayList<>(base.size());
@@ -56,7 +52,6 @@ public final class MessageManager {
         return result;
     }
 
-    /* удобный one-shot */
     public List<String> formatLines(String key, String ph, String val) {
         return formatLines(key, Map.of(ph, val));
     }

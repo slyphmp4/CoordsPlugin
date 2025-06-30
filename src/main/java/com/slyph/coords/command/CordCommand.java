@@ -18,7 +18,6 @@ public final class CordCommand implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
-    /* ---------------- исполнение ---------------- */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         var msg = plugin.getMsgManager();
@@ -61,7 +60,6 @@ public final class CordCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    /* ---------------- таб-комплиты ---------------- */
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
         if (args.length == 1) {
@@ -76,7 +74,6 @@ public final class CordCommand implements CommandExecutor, TabCompleter {
         return Collections.emptyList();
     }
 
-    /* ---------------- helper ---------------- */
     private void sendLines(CommandSender target, String key) {
         for (String raw : plugin.getMsgManager().getLines(key)) {
             Component comp = legacy.deserialize(raw);

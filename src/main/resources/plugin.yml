@@ -3,14 +3,14 @@ main: com.slyph.coords.CoordsPlugin
 version: 1.0
 api-version: 1.16
 authors: [slyph]
-description: "Постоянно выводит игроку координаты X Y Z (Action Bar)."
+description: "Постоянно выводит игроку координаты X Y Z (Action Bar)"
 
 commands:
   cord:
     description: "Управление CoordsPlugin"
     usage: "/cord <reload|on|off>"
     aliases: [coords]
-    tab-completer: com.slyph.coords.command.CordCommand   # регистрируем комплитер
+    tab-completer: com.slyph.coords.command.CordCommand
 
 permissions:
   coords.toggle:

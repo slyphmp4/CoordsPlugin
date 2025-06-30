@@ -3,9 +3,6 @@ package com.slyph.coords.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Конвертирует &FF0000 и &A в формы, которые Adventure понимает (&#FF0000 и &a).
- */
 public final class ColorUtil {
 
     private static final Pattern HEX_PATTERN = Pattern.compile("&([A-Fa-f0-9]{6})");
