@@ -12,14 +12,17 @@ jobs:
     steps:
       - name: 🛎️  Checkout sources
         uses: actions/checkout@v3
-
+    
       - name: ☕️  Set up Temurin JDK 17 + Gradle cache
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
           cache: gradle
-
+    
+      - name: 🔧  Make gradlew executable
+        run: chmod +x gradlew
+    
       - name: 🔨  Build fat-jar (shadowJar)
         run: ./gradlew shadowJar
 
