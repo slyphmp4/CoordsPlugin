@@ -24,7 +24,7 @@
 
 1. **Сборка**  
    ```bash
-   ./gradlew build
+   ./gradlew shadowJar
    ```
    В build/libs/ появится CoordsPlugin-<version>.jar
    
