@@ -49,6 +49,8 @@ already-disabled:
 # ----------- Action Bar координат ----------
 coordinate-message: "&ffff52&lX: &fdff96{x}  &ff9452&lY: &ffbd96{y}  &ff5c52&lZ: &ffa096{z}"
 
+enter-biome:
+  - "&cbffc9Вы вошли в новый биом &a3ff9f→  &60ff59&l{biome}"
 
 #         *        .        ✦          .             .         *
 #        .                *        .         ✷             ✧        .

@@ -45,7 +45,7 @@ public final class UpdateChecker {
                     plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
                     plugin.getLogger().info("");
                     plugin.getLogger().info("[CoordsPlugin] New version available " + latest +
-                            " (текущая " + current + ")");
+                            " (yours " + current + ")");
                     plugin.getLogger().info("[CoordsPlugin] Download: " + DL);
                     plugin.getLogger().info("");
                     plugin.getLogger().info("=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=+=-=");
