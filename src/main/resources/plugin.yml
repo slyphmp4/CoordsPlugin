@@ -1,6 +1,6 @@
 name: CoordsPlugin
 main: com.slyph.coords.CoordsPlugin
-version: 1.1
+version: 1.2
 api-version: 1.16
 authors: [slyph]
 description: "Постоянно выводит игроку координаты X Y Z (Action Bar)"
