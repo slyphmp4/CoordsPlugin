@@ -1,6 +1,6 @@
 # CoordsPlugin
 
-![java21](https://img.shields.io/badge/Java-21-blue) ![paperapi](https://img.shields.io/badge/API-Paper%201.20%2B-orange)
+[![java21](https://img.shields.io/badge/Java-21-blue)](https://adoptium.net/temurin/releases/) [![paperapi](https://img.shields.io/badge/API-Paper%201.20%2B-orange)](https://papermc.io/downloads/paper)
 
 Плагин постоянно показывает игроку их координаты **X Y Z** в Action Bar.  
 Все строки и цвета настраиваются через YAML-файлы.
