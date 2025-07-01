@@ -1,0 +1,74 @@
+prefix: ""
+
+# ---------------- Befehls-Meldungen ----------------
+usage:
+  - ""
+  - "&ffc852 ☄  &ffde96|  &ffc852Verwende /cord &lon/off"
+  - ""
+
+no-perm:
+  - ""
+  - "&c72b2b ❌  &ff9089|  &ff5a5aDu hast keine Berechtigung, diesen Befehl zu verwenden"
+  - ""
+
+player-only:
+  - ""
+  - "Nur ein Spieler kann diesen Befehl ausführen."
+  - ""
+
+unknown-subcmd:
+  - ""
+  - "&ffc852 ☄  &ffde96|  &ffc852Verwende /cord &lon/off"
+  - ""
+
+reload-success:
+  - ""
+  - "&86e96e ✔  &6dbf58|  &86e96ePlugin erfolgreich neu geladen!"
+  - ""
+
+coords-enabled:
+  - ""
+  - "&86e96e ✔  &6dbf58|  &86e96eKoordinaten aktiviert"
+  - ""
+
+coords-disabled:
+  - ""
+  - "&c72b2b ⛈  &ff9089|  &ff5a5aKoordinaten deaktiviert"
+  - ""
+
+already-enabled:
+  - ""
+  - "&86e96e ✔  &6dbf58|  &86e96eKoordinaten sind bereits aktiviert"
+  - ""
+
+already-disabled:
+  - ""
+  - "&c72b2b ⛈  &ff9089|  &ff5a5aKoordinaten sind bereits deaktiviert"
+  - ""
+
+# ----------- Action-Bar-Koordinaten ----------
+coordinate-message: "&ffff52&lX: &fdff96{x}  &ff9452&lY: &ffbd96{y}  &ff5c52&lZ: &ffa096{z}"
+
+
+#         *        .        ✦          .             .         *
+#        .                *        .         ✷             ✧        .
+#               .        ⋆    *         ✧         *      ⋆          .
+#  ⋆           .        .        ⋆     .             ⋆       .     .
+#        ✷         .       *         ✦     ⋆      .     ⋆      *
+# .      ⋆    ⋆        .         ✧       ⋆     ✦           ⋆         ✦
+#        .    ⋆         ✷             ⋆          ⋆    ✧      .      ⋆
+# ✷      .        ⋆     .    ⋆      ☄       ⋆     .     ⋆     ✧        .
+#       .    ✦       .      ⋆       ⋆      ✷        .        ⋆       .
+#             ⋆        ⋆        ✷           .         ✦      ⋆
+#  ⋆    .       ✦       ⋆       .     𝒷𝓎       ✷        ✦        ⋆       ✷
+#       .         ✷        ⋆        𝓈𝓁𝓎𝓅𝒽  .         ✧    ⋆         ⋆
+#   ✷          .        .      ⋆  𝒾𝓃 ２０２５  .             ⋆        .      .
+#        .          ⋆    *         ✦         *      ⋆          .
+#            .                *        .         ✷             ✧        .
+#        ✷         .       *         ✦     ⋆      .     ⋆      *
+# .      ⋆    ⋆        .         ✧       ⋆     ✦           ⋆         ✦
+#        .    ⋆         ✷             ⋆          ⋆    ✧      .      ⋆
+# ✷      .        ⋆     .    ⋆      ☄       ⋆     .     ⋆     ✧        .
+#       .    ✦       .      ⋆       ⋆      ✷        .        ⋆      .
+#             ⋆        ⋆        ✷           .         ✦      ⋆
+#         *        .        ✦          .             .         *
